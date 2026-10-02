@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useId, useState, type KeyboardEvent } from "react";
+import { ProjectProofCard } from "@/components/projects/ProjectProofCard";
 import { StartBriefLink } from "@/components/brief/StartBriefLink";
-import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { Label } from "@/components/ui/Label";
 import { serviceTerms } from "@/content/services";
 import { cn } from "@/lib/cn";
@@ -135,24 +135,23 @@ function ServiceOverview({ service }: { service: Service }) {
       </div>
       <div className="flex flex-col gap-3.5">
         <Label>Déjà fait</Label>
-        {service.preuves.map(({ slug, note }) => {
-          const project = getProjectBySlug(slug);
-          if (!project) return null;
-          return (
-            <Link
-              key={slug}
-              href={`/projets/${slug}`}
-              className="group flex items-center gap-3.5 rounded-card border border-line bg-surface p-2.5 transition-colors hover:border-line-strong"
-            >
-              <span aria-hidden="true" className="bg-dots size-16 shrink-0 rounded-[0.75rem] border border-line bg-bg" />
-              <span className="flex flex-1 flex-col gap-1">
-                <span className="font-display text-[1.375rem] leading-tight">{project.nom}</span>
-                <Label className="text-[10px]">{note}</Label>
-              </span>
-              <ArrowUpRightIcon className="mr-2 text-muted transition-colors group-hover:text-accent" />
-            </Link>
-          );
-        })}
+        <div className="grid gap-3 sm:grid-cols-2">
+          {service.preuves.map(({ slug, note }) => {
+            const project = getProjectBySlug(slug);
+            if (!project) return null;
+            return (
+              <ProjectProofCard
+                key={slug}
+                name={project.nom}
+                note={note}
+                href={`/projets/${slug}`}
+                image={project.affiche ?? project.video?.poster ?? project.cover}
+                status={project.statut}
+                sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 100vw"
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

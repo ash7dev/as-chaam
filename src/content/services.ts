@@ -20,7 +20,7 @@ export const services: Service[] = [
       "Mise en ligne, premiers utilisateurs, mesure",
     ],
     preuves: [
-      { slug: "autoloc", note: "Marketplace · en ligne" },
+      { slug: "autoloc", note: "Marketplace · web et mobile" },
       { slug: "unknown", note: "Web · mobile · API" },
     ],
     stack: "Next.js · React Native · NestJS",
@@ -45,8 +45,8 @@ export const services: Service[] = [
       "Back-office et suivi des commandes",
     ],
     preuves: [
-      { slug: "mamous-accessories", note: "Bijoux · en ligne" },
-      { slug: "maison-adama-tchurayy", note: "Parfums · en cours" },
+      { slug: "mamous-accessories", note: "Bijoux · commande sans compte" },
+      { slug: "maison-adama-tchurayy", note: "Parfums · Wave et livraison" },
     ],
     stack: "Next.js · Supabase · Wave",
     partition: [

@@ -217,7 +217,7 @@ export const projects: Project[] = [
     stack: ["React Native"],
     cover: "/projets/kollect/scene/vitrine.webp",
     affiche: "/projets/kollect/affiche/kollect-affiche.webp",
-    video: { src: "/projets/kollect/video/kollect-motion.mp4", poster: "/projets/kollect/video/poster.webp" },
+    video: { src: "/projets/kollect/video/kollect-motion-v2.mp4", poster: "/projets/kollect/video/poster-v2.webp" },
     captures: [],
     chapo:
       "Kollect est une marketplace multi-marques où les créateurs africains lancent leurs drops : les clients découvrent et achètent dans une app, et chaque marque pilote ses collections, son stock et ses ventes depuis son propre espace.",

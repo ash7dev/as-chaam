@@ -1,3 +1,5 @@
+import type { ProjectStatus } from "@/types/project";
+
 export type Goal = "vendre" | "lancer" | "digitaliser" | "grandir" | "autre";
 
 export type PlanKey = "boutique" | "marketplace" | "lancer" | "digitaliser" | "grandir" | "autre";
@@ -89,7 +91,16 @@ export type BriefMessage =
   | { id: number; kind: "bot"; text: string }
   | { id: number; kind: "ask"; text: string }
   | { id: number; kind: "user"; text: string }
-  | { id: number; kind: "proof"; name: string; meta: string; href: string }
+  | {
+      id: number;
+      kind: "proof";
+      name: string;
+      meta: string;
+      href: string;
+      /** Visuel du projet (affiche 16:9, sinon image de la vidéo ou couverture). */
+      image?: string;
+      status: ProjectStatus;
+    }
   | { id: number; kind: "plan"; plan: BriefPlan }
   | { id: number; kind: "whatsapp"; answers: BriefAnswer[]; planTitle: string };
 

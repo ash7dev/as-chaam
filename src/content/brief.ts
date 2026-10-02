@@ -69,7 +69,7 @@ export const briefTree: Record<BriefNodeId, BriefNode> = {
           "Une marketplace : c'est exactement mon terrain.",
           "Séquestre, KYC, wallets, paiements Wave et Orange Money : tout ça tourne déjà ici :",
         ],
-        proof: { projectSlug: "autoloc", meta: "Marketplace véhicules · en ligne" },
+        proof: { projectSlug: "autoloc", meta: "Marketplace véhicules · séquestre · wallets" },
       },
     ],
   },

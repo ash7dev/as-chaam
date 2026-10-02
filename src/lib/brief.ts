@@ -27,7 +27,14 @@ export function buildPlan(context: BriefContext): BriefPlan {
 export function proofMessage(proof: BriefProof): DraftMessage | null {
   const project = getProjectBySlug(proof.projectSlug);
   if (!project) return null;
-  return { kind: "proof", name: project.nom, meta: proof.meta, href: `/projets/${project.slug}` };
+  return {
+    kind: "proof",
+    name: project.nom,
+    meta: proof.meta,
+    href: `/projets/${project.slug}`,
+    image: project.affiche ?? project.video?.poster ?? project.cover,
+    status: project.statut,
+  };
 }
 
 /** Ce que A's CHAAM envoie en arrivant sur un nœud : intro, plan, aperçu WhatsApp, puis la question. */

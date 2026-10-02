@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowUpRightIcon } from "@/components/ui/icons";
+import { ProjectProofCard } from "@/components/projects/ProjectProofCard";
 import { Label } from "@/components/ui/Label";
 import type { BriefMessage } from "@/types/brief";
 
@@ -26,17 +25,15 @@ export function BriefMessageItem({ message }: { message: BriefMessage }) {
 
     case "proof":
       return (
-        <Link
+        <ProjectProofCard
+          name={message.name}
+          note={message.meta}
           href={message.href}
-          className="group flex w-[86%] max-w-md items-center gap-3 rounded-inner border border-line bg-bg p-2 transition-colors hover:border-line-strong"
-        >
-          <span aria-hidden="true" className="bg-dots size-13 shrink-0 rounded-[10px] border border-line bg-surface" />
-          <span className="flex flex-1 flex-col gap-1">
-            <span className="font-display text-[19px] leading-tight">{message.name}</span>
-            <Label className="text-[10px]">{message.meta}</Label>
-          </span>
-          <ArrowUpRightIcon className="text-muted transition-colors group-hover:text-accent" />
-        </Link>
+          image={message.image}
+          status={message.status}
+          sizes="(min-width: 640px) 24rem, 80vw"
+          className="w-[86%] max-w-sm shrink-0"
+        />
       );
 
     case "plan":

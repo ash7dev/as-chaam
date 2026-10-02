@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { CaseMessageItem } from "@/components/case-study/CaseMessageItem";
 import { ChapterNav } from "@/components/case-study/ChapterNav";
 import { StatusBadge } from "@/components/projects/StatusBadge";
+import { Blurred } from "@/components/ui/Blurred";
 import { ButtonLink } from "@/components/ui/Button";
 import { ArrowLeftIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { Label } from "@/components/ui/Label";
@@ -19,6 +20,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/projets/[slug]">): Promise<Metadata> {
   const project = getProjectBySlug((await params).slug);
   if (!project) return {};
+  if (project.confidentiel) return { title: project.nom, description: "Projet confidentiel, présenté au moment de son lancement." };
   return { title: project.nom, description: `${project.question} — ${project.resume}` };
 }
 
@@ -44,7 +46,9 @@ export default async function CaseStudyPage({ params }: PageProps<"/projets/[slu
           </nav>
           <div className="flex flex-col gap-4 lg:col-span-8 lg:gap-5">
             <h1 className="font-display text-[4rem] leading-[0.92] tracking-[-0.05em] lg:text-[7.5rem] lg:leading-[0.9]">{project.nom}</h1>
-            <p className="font-display text-[1.375rem] font-light italic leading-tight text-muted lg:text-[2rem]">« {project.question} »</p>
+            <p className="font-display text-[1.375rem] font-light italic leading-tight text-muted lg:text-[2rem]">
+              {project.confidentiel ? <Blurred>« {project.question} »</Blurred> : <>« {project.question} »</>}
+            </p>
             {project.chapo && <p className="max-w-2xl text-intro text-text">{project.chapo}</p>}
           </div>
           <dl className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm lg:col-span-4 lg:gap-y-5 lg:text-[15px]">

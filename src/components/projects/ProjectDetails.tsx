@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { Blurred } from "@/components/ui/Blurred";
 import { ButtonLink } from "@/components/ui/Button";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { Label } from "@/components/ui/Label";
@@ -19,7 +20,9 @@ export function ProjectDetails({ project }: { project: Project }) {
       ) : (
         <ProjectVisual project={project} sizes="100vw" className="aspect-16/10 lg:hidden" />
       )}
-      <p className="font-display text-xl font-light italic leading-snug text-muted lg:text-[1.375rem]">« {project.question} »</p>
+      <p className="font-display text-xl font-light italic leading-snug text-muted lg:text-[1.375rem]">
+        {project.confidentiel ? <Blurred>« {project.question} »</Blurred> : <>« {project.question} »</>}
+      </p>
       <h2 className="text-h2 lg:text-[2.75rem]">{project.nom}</h2>
       <hr className="hidden border-line lg:block" />
       <dl className="hidden flex-col gap-3.5 text-sm lg:flex">

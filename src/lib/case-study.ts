@@ -17,15 +17,15 @@ export function getCaseStudy(project: Project): CaseChapter[] {
       id: "besoin",
       titre: "Le besoin",
       messages: [
-        { kind: "client", text: project.question },
-        { kind: "moi", text: project.probleme },
+        { kind: "client", text: project.question, flou: project.confidentiel },
+        { kind: "moi", text: project.probleme, flou: project.confidentiel },
       ],
     },
     {
       id: "choix",
       titre: "Les choix",
       messages: [
-        { kind: "moi", text: project.solution },
+        { kind: "moi", text: project.solution, flou: project.confidentiel },
         ...(project.livrables.length
           ? [{ kind: "briques" as const, items: project.livrables.map((valeur, index) => ({ label: String(index + 1).padStart(2, "0"), valeur })) }]
           : []),

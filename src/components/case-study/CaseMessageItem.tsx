@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { projectScenes } from "@/components/projects/scenes";
+import { Blurred } from "@/components/ui/Blurred";
 import { slideAnchor } from "@/lib/case-study";
 import { CaseCarousel } from "./CaseCarousel";
 import { Label } from "@/components/ui/Label";
@@ -29,12 +30,12 @@ export function CaseMessageItem({ message }: { message: CaseMessage }) {
     case "client":
       return (
         <p className="max-w-[86%] self-end rounded-[22px_22px_6px_22px] bg-text px-4 py-3.5 font-display text-xl leading-snug text-bg sm:max-w-[78%] sm:px-5 sm:text-[1.625rem]">
-          {message.text}
+          {message.flou ? <Blurred>{message.text}</Blurred> : message.text}
         </p>
       );
 
     case "moi":
-      return <p className={myBubble}>{message.text}</p>;
+      return <p className={myBubble}>{message.flou ? <Blurred>{message.text}</Blurred> : message.text}</p>;
 
     case "briques":
       return (

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Blurred } from "@/components/ui/Blurred";
 import { ButtonLink } from "@/components/ui/Button";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { Label } from "@/components/ui/Label";
@@ -10,7 +11,9 @@ import { StatusBadge } from "./StatusBadge";
 export function ProjectCartel({ project, className }: { project: Project; className?: string }) {
   return (
     <article className={cn("flex flex-col gap-4 rounded-inner border border-line-strong p-5", className)}>
-      <p className="font-display text-xl font-light italic leading-snug text-muted">« {project.question} »</p>
+      <p className="font-display text-xl font-light italic leading-snug text-muted">
+        {project.confidentiel ? <Blurred>« {project.question} »</Blurred> : <>« {project.question} »</>}
+      </p>
       <h3 className="text-h3">{project.nom}</h3>
       <hr className="border-line" />
       <dl className="flex flex-col gap-3 text-sm">

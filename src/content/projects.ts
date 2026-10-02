@@ -189,16 +189,26 @@ export const projects: Project[] = [
     annee: 2026,
     statut: "en-construction",
     role: "Fondateur · produit et développement",
-    question: "Comment louer sans passer par Airbnb ?",
-    resume:
-      "La location courte durée au Sénégal, pensée pour les gestionnaires qui travaillent sur WhatsApp.",
+    // Confidentiel jusqu'au lancement : les textes ci-dessous sont des leurres, affichés floutés.
+    // La vraie description, gardée en commentaire (les commentaires ne partent pas dans le site) :
+    //   question : « Comment louer sans passer par Airbnb ? »
+    //   résumé   : La location courte durée au Sénégal, pensée pour les gestionnaires qui travaillent sur WhatsApp.
+    //   problème : Au Sénégal, Airbnb et Booking pèsent peu : la plupart des gestionnaires louent uniquement
+    //              via WhatsApp, sans paiement sécurisé.
+    //   solution : Une marketplace avec prix net garanti au propriétaire, séquestre jusqu'à la validation
+    //              du check-in et programme de fidélité Teranga Club.
+    confidentiel: true,
+    question: "Comment lancer ce produit avant tout le monde ?",
+    resume: "Un produit encore confidentiel, présenté ici au moment de son lancement.",
     probleme:
-      "Au Sénégal, Airbnb et Booking pèsent peu : la plupart des gestionnaires louent uniquement via WhatsApp, sans paiement sécurisé.",
+      "Ce projet n'est pas encore public : son marché, son problème et sa réponse seront présentés ici au moment du lancement.",
     solution:
-      "Une marketplace avec prix net garanti au propriétaire, séquestre jusqu'à la validation du check-in et programme de fidélité Teranga Club.",
+      "Une plateforme complète, du web au mobile, dont le détail sera dévoilé avec le lancement officiel du produit.",
     resultats: [],
     livrables: ["Web", "App mobile", "API", "Back-office", "Séquestre"],
     stack: [],
+    cover: "/projets/unknown/affiche/unknown-affiche.webp",
+    affiche: "/projets/unknown/affiche/unknown-affiche.webp",
     captures: [],
   },
   {

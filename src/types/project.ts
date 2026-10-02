@@ -2,8 +2,9 @@ export type ProjectStatus = "en-ligne" | "en-construction" | "en-cours";
 
 /** Un message du fil de l'étude de cas. */
 export type CaseMessage =
-  | { kind: "client"; text: string }
-  | { kind: "moi"; text: string }
+  /** `flou` : projet confidentiel, le texte (un leurre) s'affiche flouté. */
+  | { kind: "client"; text: string; flou?: boolean }
+  | { kind: "moi"; text: string; flou?: boolean }
   /** Les briques livrées : « Identité → KYC ». */
   | { kind: "briques"; items: { label: string; valeur: string }[] }
   | { kind: "capture"; legende: string; src?: string }
@@ -55,6 +56,11 @@ export interface Project {
   /** Vidéo de présentation (salles de l'accueil), avec son image d'attente. */
   video?: { src: string; poster: string };
   captures: string[];
+  /**
+   * Projet confidentiel : question, résumé, problème et solution sont des leurres affichés floutés.
+   * Ne jamais y mettre la vraie description (elle partirait dans le HTML et le JS).
+   */
+  confidentiel?: boolean;
   /** Adresse publique, uniquement si le projet est en ligne. */
   lien?: string;
   /** Fil de l'étude de cas rédigé à la main ; sinon il est déduit des champs ci-dessus. */

@@ -1,0 +1,429 @@
+@import "tailwindcss";
+
+/*
+ * A's CHAAM — palette « Espresso & Glacier »
+ * Règles : glacier rare (1 bouton glacier par écran, 1-2 mots par titre),
+ * pas de noir ni de blanc purs, texte sur glacier toujours en Espresso.
+ */
+
+/* ------------------------------------------------------------------ */
+/* 1. Tokens runtime                                                   */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Surfaces */
+  --bg: #1c1410; /* Espresso : fond de page */
+  --surface: #261c17; /* Torréfié : cartes, hero, blocs */
+  --line: #3a2c24; /* bordures fines */
+  --line-strong: #4c3b30; /* bordures de boutons secondaires, swatches */
+
+  /* Texte */
+  --text: #ede6de; /* Lait : texte principal, bouton primaire */
+  --muted: #b4a497; /* Noisette : texte secondaire, navigation */
+
+  /* Accent */
+  --accent: #9cc7e8; /* Glacier : CTA, mots en italique, liens, focus */
+  --on-accent: #1c1410; /* texte posé sur le glacier */
+
+  /* États (formulaire de contact, messages) */
+  --danger: #e8907a; /* erreur, lisible sur Espresso */
+  --success: #a8d5b5; /* envoi réussi */
+
+  /* Motifs de fond (canaux RGB pour jouer sur l'opacité) */
+  --accent-rgb: 156 199 232;
+  --text-rgb: 237 230 222;
+
+  color-scheme: dark;
+}
+
+/* ------------------------------------------------------------------ */
+/* 2. Thème Tailwind lié aux variables runtime (couleurs, familles)     */
+/*    inline : les classes pointent vers les variables ci-dessus.       */
+/* ------------------------------------------------------------------ */
+@theme inline {
+  /* Couleurs — bg-bg, bg-surface, border-line, text-muted, bg-accent… */
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Familles — variables injectées par next/font dans layout.tsx */
+  --font-display: var(--font-fraunces), Georgia, serif; /* titres */
+  --font-sans: var(--font-bricolage), system-ui, sans-serif; /* interface et texte */
+  --font-mono: var(--font-spline-mono), ui-monospace, monospace; /* étiquettes, dates, stack */
+}
+
+/* ------------------------------------------------------------------ */
+/* 3. Thème Tailwind à valeurs fixes (échelle typo, rayons)             */
+/*    Bloc normal : ces valeurs existent aussi en variables CSS.        */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Échelle typographique (mobile 375 px → desktop 1280 px) */
+  --text-h1: clamp(3rem, 1.757rem + 5.304vw, 6rem); /* 48 → 96 px */
+  --text-h1--line-height: 0.98;
+  --text-h1--letter-spacing: -0.04em;
+  --text-h1--font-weight: 400;
+
+  --text-h2: clamp(2.25rem, 1.628rem + 2.652vw, 3.75rem); /* 36 → 60 px */
+  --text-h2--line-height: 1;
+  --text-h2--letter-spacing: -0.03em;
+  --text-h2--font-weight: 400;
+
+  --text-h3: 1.625rem; /* 26 px */
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 400;
+
+  --text-intro: clamp(1.0625rem, 1.011rem + 0.221vw, 1.1875rem); /* 17 → 19 px */
+  --text-intro--line-height: 1.55;
+
+  --text-body: 1rem; /* 16 px */
+  --text-body--line-height: 1.6;
+
+  --text-ui: 0.9375rem; /* 15 px — boutons, nav (500-600) */
+  --text-ui--line-height: 1;
+
+  --text-label: 0.75rem; /* 12 px — mono */
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.1em;
+
+  /* Rayons — rounded-pill, rounded-section, rounded-card, rounded-inner */
+  --radius-pill: 9999px; /* tout ce qui est cliquable */
+  --radius-section: 1.75rem; /* 28 px — hero, grandes sections */
+  --radius-card: 1.125rem; /* 18 px — cartes projet */
+  --radius-inner: 0.875rem; /* 14 px — éléments à l'intérieur d'une carte */
+
+  /* Largeur de lecture */
+  --container-prose: 40rem; /* max-w-prose : ~65 caractères */
+  --container-page: 80rem; /* max-w-page : 1280 px */
+}
+
+/* ------------------------------------------------------------------ */
+/* 4. Base                                                             */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-bricolage), system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Italique Fraunces léger : la signature des titres */
+  h1 em,
+  h2 em,
+  h3 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Champs : 16 px minimum pour éviter le zoom auto sur iOS */
+  input,
+  textarea,
+  select {
+    font-size: 1rem;
+  }
+
+  /* Accessibilité clavier et sélection en glacier */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  /* Barres de défilement masquées : le défilement reste actif (molette, doigt, clavier) */
+  * {
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 5. Utilitaires maison                                               */
+/* ------------------------------------------------------------------ */
+
+/* Halo glacier — hero. Rayon fixe : le halo garde sa taille quelle que soit
+   la hauteur de l'élément (en %, il délaverait tout le fond d'une page longue). */
+@utility bg-halo {
+  background-image: radial-gradient(
+    circle 40rem at 90% 0,
+    rgb(var(--accent-rgb) / 0.16),
+    transparent 70%
+  );
+  background-repeat: no-repeat;
+}
+
+/* Trame de points — sections */
+@utility bg-dots {
+  background-image: radial-gradient(
+    rgb(var(--text-rgb) / 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+}
+
+/* Halo + trame combinés — carte hero */
+@utility bg-hero {
+  background-image:
+    radial-gradient(circle at 90% 6%, rgb(var(--accent-rgb) / 0.18), transparent 40%),
+    radial-gradient(rgb(var(--text-rgb) / 0.07) 1px, transparent 1px);
+  background-size: auto, 22px 22px;
+}
+
+/* Étiquette mono — rubriques, dates, stack */
+@utility label {
+  font-family: var(--font-spline-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Point de l'indicateur « en train d'écrire » du brief */
+@keyframes typing {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@utility typing-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: var(--radius-pill);
+  background: var(--muted);
+  animation: typing 1.1s infinite;
+}
+
+/* Apparition douce d'un contenu qui change (détails du cadran) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+@utility animate-fade-up {
+  animation: fade-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Lien souligné discret, qui passe en glacier au survol */
+@utility link {
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 4px;
+  transition: color 150ms ease, text-decoration-color 150ms ease;
+
+  &:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. Composants                                                       */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Bouton de base : pilule */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem; /* 44 px : cible tactile */
+    padding: 0 1.5rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-bricolage), system-ui, sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  }
+
+  /* Primaire : Lait sur Espresso (« Voir les projets ») */
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--text) 88%, var(--accent));
+  }
+
+  /* Conversion : glacier, UN seul par écran (« Parlons projet ») */
+  .btn-accent {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-accent:hover {
+    background: color-mix(in srgb, var(--accent) 85%, var(--text));
+  }
+
+  /* Secondaire : contour */
+  .btn-ghost {
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+  }
+  .btn-ghost:hover {
+    border-color: var(--muted);
+  }
+
+  /* Carte générique */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+  }
+
+  /* Champ de formulaire */
+  .field {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-inner);
+    color: var(--text);
+    font-size: 1rem;
+    transition: border-color 150ms ease;
+  }
+  .field::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .field:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--danger);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. Cadran des projets (/projets)                                    */
+/*    --active et --count sont posés par le composant.                 */
+/* ------------------------------------------------------------------ */
+.dial {
+  container-type: inline-size;
+  --dial-step: 30deg; /* mobile : voisins serrés sur le haut de l'arc */
+  --dial-radius: 38cqw;
+  --dial-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (min-width: 64rem) {
+  .dial {
+    --dial-step: calc(360deg / var(--count));
+    --dial-radius: 41.5cqw;
+  }
+}
+
+.dial-ring {
+  transform: rotate(calc(var(--active) * var(--dial-step) * -1));
+  transition: transform 0.6s var(--dial-ease);
+}
+
+/* Placé sur le cercle, puis contre-tourné pour rester lisible. */
+.dial-label {
+  transform: translate(-50%, -50%) rotate(calc(var(--index) * var(--dial-step)))
+    translateY(calc(var(--dial-radius) * -1))
+    rotate(calc((var(--index) - var(--active)) * var(--dial-step) * -1));
+  transition:
+    transform 0.6s var(--dial-ease),
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.dial-ticks {
+  background: repeating-conic-gradient(from -0.3deg, var(--line-strong) 0deg 0.6deg, transparent 0.6deg 6deg);
+  mask: radial-gradient(circle closest-side, transparent calc(100% - 1.125rem), #000 calc(100% - 1.125rem + 1px));
+}
+
+/* Petit cadran de la fiche technique (/a-propos) */
+.calibre-ticks {
+  background: repeating-conic-gradient(from -0.5deg, var(--line-strong) 0deg 1deg, transparent 1deg 15deg);
+  mask: radial-gradient(circle closest-side, transparent calc(100% - 0.5rem), #000 calc(100% - 0.5rem + 1px));
+}
+
+/* Horloge de Dakar (/contact) */
+.clock-ticks {
+  background: repeating-conic-gradient(from -0.3deg, var(--line-strong) 0deg 0.6deg, transparent 0.6deg 6deg);
+  mask: radial-gradient(circle closest-side, transparent calc(100% - 1rem), #000 calc(100% - 1rem + 1px));
+}
+
+.clock-ticks-hours {
+  background: repeating-conic-gradient(from -0.6deg, var(--muted) 0deg 1.2deg, transparent 1.2deg 30deg);
+  mask: radial-gradient(circle closest-side, transparent calc(100% - 1.6rem), #000 calc(100% - 1.6rem + 1px));
+}
+
+/* Aiguille : pivote autour du centre du cadran (son bord bas). */
+.clock-hand {
+  transform-origin: 50% 100%;
+  transform: translateX(-50%) rotate(var(--angle));
+}
+
+/* La trotteuse dépasse un peu du centre : son pivot est remonté d'autant. */
+.clock-hand-second {
+  transform-origin: 50% 87%;
+}
+
+/* ------------------------------------------------------------------ */
+/* 8. Mouvement réduit                                                 */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
